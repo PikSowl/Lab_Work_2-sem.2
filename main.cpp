@@ -1,3 +1,4 @@
+#include "cstring";
 #include "string.h"
 #include <iostream>
 using std::cout;
