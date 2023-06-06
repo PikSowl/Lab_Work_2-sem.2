@@ -43,12 +43,19 @@ public:
         return *this;
     }
 
+    SowlString& operator+= (const SowlString& other)
+    {
+        this->s_size += other.s_size;
+        strcpy(this->s_str, std::strcat(this->s_str, other.s_str));
+    }
+
     char& operator[](size_t pos)
     {
         return s_str[pos];
     }
 
-    char& at(size_t pos){
+    char at(size_t pos)
+    {
         if(pos >= s_size)
         {
             cout << "out_of_range";
@@ -56,7 +63,7 @@ public:
         else return this->s_str[pos];
     }
 
-    int find(SowlString what)
+    int find(SowlString & what)
     {
         for(int i = 0; i < s_size - what.length() + 1; i++)
         {
@@ -70,6 +77,13 @@ public:
             if (ok) return i;
         }
         return -1;
+    }
+
+    friend SowlString operator+ (const SowlString& first, const SowlString& second)
+    {
+        SowlString temp = first;
+        temp += second;
+        return temp;
     }
 
     friend bool operator<(const SowlString &str1, const SowlString &str2)
@@ -150,6 +164,14 @@ int main()
     cout << s3.find(s4) << endl;
 
     cout << s2.length()<< " " << s2.c_str()<< endl;
+
+    s2 += ", oh, beautiful ";
+
+    cout << s2 << endl;
+
+    SowlString s5 = s2 + s4;
+
+    cout << s5 << endl;
 
     cin >> s3;
     s3.Print();
